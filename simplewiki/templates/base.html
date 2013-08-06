@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{{ STATIC_URL }}style/screen.css" rel="stylesheet" type="text/css" media="screen">
+</head>
+<body>
+    <header>
+        <h1>Django Simple Wiki</h1>
+    </header>
+    <hr>
+    <div id="body">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
