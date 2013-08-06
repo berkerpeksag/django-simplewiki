@@ -1,3 +1,7 @@
+import os
+
+PROJECT_PATH = os.path.abspath(os.getcwd())
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -63,7 +67,9 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'testproject.urls'
 
-TEMPLATE_DIRS = ()
+TEMPLATE_DIRS = (
+    os.path.join(PROJECT_PATH, 'templates'),
+)
 
 INSTALLED_APPS = (
     'django.contrib.auth',

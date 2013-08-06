@@ -6,7 +6,7 @@
 </head>
 <body>
     <header>
-        <h1>Django Simple Wiki</h1>
+        <h1>Wiki</h1>
         {% if user.is_authenticated %}
             <p>Welcome, {{ user.username }}. <a href="{% url 'django.contrib.auth.views.logout' %}">Logout</a></p>
         {% else %}
