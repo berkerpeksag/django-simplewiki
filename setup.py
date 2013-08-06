@@ -13,6 +13,7 @@ setup(
     platforms='any',
     license='Mozilla Public License, v. 2.0',
     classifiers=(
+        'Framework :: Django',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.6',
