@@ -7,4 +7,4 @@ class DocumentDetailView(DetailView):
 
     model = Document
     context_object_name = 'doc'
-    template_name = 'simplewiki/document.html'
+    template_name = 'simplewiki/document_detail.html'
