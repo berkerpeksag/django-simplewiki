@@ -1,9 +1,9 @@
 from django.conf.urls import patterns, url
 
-from .views import DocumentDetailView, DocumentUpdate, IndexView
+from .views import DocumentDetail, DocumentUpdate, DocumentIndex
 
 urlpatterns = patterns('simplewiki.views',
-    url(r'^$', IndexView.as_view()),
-    url(r'^(?P<slug>[a-z0-9-]+)$', DocumentDetailView.as_view(), name='document_detail'),
+    url(r'^$', DocumentIndex.as_view()),
+    url(r'^(?P<slug>[a-z0-9-]+)$', DocumentDetail.as_view(), name='document_detail'),
     url(r'^(?P<slug>[a-z0-9-]+)/edit/$', DocumentUpdate.as_view(), name='document_update'),
 )

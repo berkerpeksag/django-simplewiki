@@ -5,7 +5,7 @@ from .forms import DocumentForm
 from .models import Document
 
 
-class IndexView(ListView):
+class DocumentIndex(ListView):
 
     context_object_name = 'docs'
     template_name = 'simplewiki/index.html'
@@ -14,7 +14,7 @@ class IndexView(ListView):
         return Document.objects.filter(is_published=True)
 
 
-class DocumentDetailView(DetailView):
+class DocumentDetail(DetailView):
 
     model = Document
     context_object_name = 'doc'
