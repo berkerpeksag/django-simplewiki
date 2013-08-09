@@ -2,9 +2,12 @@
 
 {% block content %}
     <h2>{{ doc.title }}</h2>
+    <p>
+        by {{ doc.author.username }}
+    </p>
     {% if user.is_authenticated %}
         <p>
-            <a href="#">Edit</a>
+            <a href="{{ doc.get_absolute_url }}/edit/">Edit</a>
         </p>
     {% endif %}
     {{ doc.render|safe }}

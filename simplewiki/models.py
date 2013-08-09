@@ -28,8 +28,9 @@ class Document(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)
+        slug = slugify(self.title)
+        if self.slug != slug:
+            self.slug = slug
         super(Document, self).save(*args, **kwargs)
 
     def render(self):

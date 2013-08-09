@@ -4,6 +4,7 @@ from .models import Document
 
 
 class DocumentForm(forms.ModelForm):
+
     class Meta:
         model = Document
-        exclude = ['author', 'slug']
+        fields = ['title', 'slug', 'text']
