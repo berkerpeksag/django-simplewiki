@@ -2,7 +2,7 @@
 
 {% block content %}
     <h2>{{ doc.title }}</h2>
-    {{ doc.text }}
+    {{ doc.render|safe }}
     <hr>
     {{ doc.get_absolute_url }}
 {% endblock %}
