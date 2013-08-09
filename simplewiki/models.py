@@ -19,8 +19,11 @@ class Document(models.Model):
     text = models.TextField()
     is_published = models.BooleanField(default=False, verbose_name='Publish?')
     created_on = models.DateTimeField(auto_now_add=True)
+    update_date = models.DateTimeField(auto_now=True)
     markup = models.CharField(max_length=3, choices=MARKUPS, default='md')
 
+    class Meta:
+        ordering = ['-update_date']
     def __unicode__(self):
         return self.title
 
