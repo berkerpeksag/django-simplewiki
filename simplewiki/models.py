@@ -24,8 +24,6 @@ class Document(models.Model):
 
     class Meta:
         ordering = ['-update_date']
-    def __unicode__(self):
-        return self.title
 
     def save(self, *args, **kwargs):
         slug = slugify(self.title)
@@ -38,7 +36,9 @@ class Document(models.Model):
             return markdown(self.text)
         return self.text
 
-
     @models.permalink
     def get_absolute_url(self):
         return 'document_detail', (), {'slug': self.slug}
+
+    def __unicode__(self):
+        return self.title
