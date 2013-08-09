@@ -3,7 +3,7 @@
 {% block content %}
     <ul>
     {% for doc in docs %}
-        <li><a href="{{ doc.get_absolute_url }}" title="{{ doc.title }}">{{ doc.title }}</a> ({{ doc.created_on|timesince }} ago)</li>
+        <li><a href="{{ doc.get_absolute_url }}" title="{{ doc.title }}">{{ doc.title }}</a> ({{ doc.update_date|timesince }} ago)</li>
     {% endfor %}
     </ul>
 {% endblock %}
