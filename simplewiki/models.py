@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.encoding import smart_unicode
 from django.template.defaultfilters import slugify
 
 from markdown import markdown
@@ -41,4 +42,4 @@ class Document(models.Model):
         return 'document_detail', (), {'slug': self.slug}
 
     def __unicode__(self):
-        return self.title
+        return smart_unicode(self.title)
