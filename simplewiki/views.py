@@ -7,11 +7,9 @@ from .models import Document
 
 class DocumentIndex(ListView):
 
+    queryset = Document.objects.published()
     context_object_name = 'docs'
     template_name = 'simplewiki/index.html'
-
-    def get_queryset(self):
-        return Document.objects.filter(is_published=True)
 
 
 class DocumentDetail(DetailView):

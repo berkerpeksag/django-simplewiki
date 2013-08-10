@@ -5,6 +5,8 @@ from django.template.defaultfilters import slugify
 
 from markdown import markdown
 
+from .managers import DocumentManager
+
 
 MARKUPS = (
     (u'rst', u'reStructuredText'),
@@ -22,6 +24,8 @@ class Document(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
     markup = models.CharField(max_length=3, choices=MARKUPS, default='md')
+
+    objects = DocumentManager()
 
     class Meta:
         ordering = ['-update_date']
