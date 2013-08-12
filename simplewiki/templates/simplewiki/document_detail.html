@@ -3,15 +3,14 @@
 {% block title %}{{ doc.title }}{% endblock %}
 
 {% block content %}
-    <h2>{{ doc.title }}</h2>
-    <p>
-        by {{ doc.author.username }}
+    <h2>
+        {{ doc.title }}
+        {% if user.is_authenticated %}
+        [<a href="{{ doc.get_absolute_url }}/edit/">edit</a>]
+        {% endif %}
+    </h2>
+    <p id="doc-meta">
+        Created by {{ doc.author.username }} {{ doc.created_on|timesince }} ago.
     </p>
-    {% if user.is_authenticated %}
-        <p>
-            <a href="{{ doc.get_absolute_url }}/edit/">Edit</a>
-        </p>
-    {% endif %}
     {{ doc.render|safe }}
-    <hr>
 {% endblock %}

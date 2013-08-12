@@ -1,3 +1,27 @@
+a {
+    color: #336699;
+}
+
 body {
-    font: normal 14px Arial;
+    background: #D1DCE8; margin: 20px auto; width: 960px;
+}
+
+header {
+    border-bottom: 2px solid #C1CBD6; height: 45px;
+}
+header > h1 {
+    font-size: 20px;
+}
+header > #user {
+    float: right;
+}
+
+#body {
+    background-color: #fff; padding: 25px;
+}
+#body > h2 {
+    margin-top: 0;
+}
+#body > #doc-meta {
+    color: #333333; font-size: 12px;
 }
