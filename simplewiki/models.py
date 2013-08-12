@@ -1,5 +1,5 @@
+from django.conf import settings
 from django.db import models
-from django.contrib.auth.models import User
 from django.utils.encoding import smart_unicode
 from django.template.defaultfilters import slugify
 
@@ -16,7 +16,7 @@ MARKUPS = (
 
 class Document(models.Model):
 
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(getattr(settings, 'AUTH_USER_MODEL', 'auth.User'))
     title = models.CharField(max_length=150)
     slug = models.SlugField(max_length=100, unique=True)
     text = models.TextField()
