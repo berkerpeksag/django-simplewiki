@@ -2,6 +2,7 @@ from django.views.generic import DetailView, ListView
 from django.views.generic.edit import UpdateView
 
 from .forms import DocumentForm
+from .mixins import LoginRequiredMixin
 from .models import Document
 
 
@@ -19,7 +20,7 @@ class DocumentDetail(DetailView):
     template_name = 'simplewiki/document_detail.html'
 
 
-class DocumentUpdate(UpdateView):
+class DocumentUpdate(LoginRequiredMixin, UpdateView):
 
     model = Document
     form_class = DocumentForm
