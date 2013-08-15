@@ -30,7 +30,6 @@ class DocumentRevision(LoginRequiredMixin, CreateView):
 
     def get_initial(self):
         initial = super(DocumentRevision, self).get_initial()
-        initial = initial.copy()
         initial['content'] = self.document.current_revision.content
         return initial
 
@@ -40,6 +39,6 @@ class DocumentRevision(LoginRequiredMixin, CreateView):
         return super(DocumentRevision, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
-        context = super(DocumentRevision, self).get_context_data(**kwargs)
-        context['doc'] = self.document
-        return context
+        return super(DocumentRevision,
+                     self).get_context_data(doc=self.document,
+                                            **kwargs)
