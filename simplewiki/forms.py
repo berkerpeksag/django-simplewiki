@@ -7,4 +7,4 @@ class RevisionForm(forms.ModelForm):
 
     class Meta:
         model = Revision
-        exclude = ('rendered',)
+        fields = ('summary', 'content')

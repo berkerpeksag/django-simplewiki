@@ -25,7 +25,11 @@ class DocumentDetail(DetailView):
 class DocumentRevision(CreateView):
     model = Revision
     form_class = RevisionForm
-    #context_object_name = 'doc'
+
+    def form_valid(self, form):
+        form.instance.creator = self.request.user
+        form.instance.document = Document.objects.get(slug=self.kwargs['slug'])
+        return super(DocumentRevision, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super(DocumentRevision, self).get_context_data(**kwargs)
