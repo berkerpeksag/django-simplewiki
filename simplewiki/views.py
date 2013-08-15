@@ -1,7 +1,5 @@
 from django.views.generic import DetailView, ListView
-from django.views.generic.edit import CreateView, UpdateView
-
-from extra_views import InlineFormSetView
+from django.views.generic.edit import CreateView
 
 from .forms import RevisionForm
 from .mixins import LoginRequiredMixin
@@ -22,7 +20,7 @@ class DocumentDetail(DetailView):
     template_name = 'simplewiki/document_detail.html'
 
 
-class DocumentRevision(CreateView):
+class DocumentRevision(LoginRequiredMixin, CreateView):
     model = Revision
     form_class = RevisionForm
 
