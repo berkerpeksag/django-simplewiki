@@ -26,12 +26,22 @@ class DocumentRevision(CreateView):
     model = Revision
     form_class = RevisionForm
 
+    @property
+    def document(self):
+        return Document.objects.get(slug=self.kwargs['slug'])
+
+    def get_initial(self):
+        initial = super(DocumentRevision, self).get_initial()
+        initial = initial.copy()
+        initial['content'] = self.document.current_revision.content
+        return initial
+
     def form_valid(self, form):
         form.instance.creator = self.request.user
-        form.instance.document = Document.objects.get(slug=self.kwargs['slug'])
+        form.instance.document = self.document
         return super(DocumentRevision, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super(DocumentRevision, self).get_context_data(**kwargs)
-        context['doc'] = Document.objects.get(slug=self.kwargs['slug'])
+        context['doc'] = self.document
         return context
