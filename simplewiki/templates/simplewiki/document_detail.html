@@ -10,7 +10,14 @@
         {% endif %}
     </h2>
     <p id="doc-meta">
-        Created by {{ doc.author.username }} {{ doc.created_on|timesince }} ago.
+        Created {{ doc.created_on|timesince }} ago. Updated by {{ doc.current_revision.creator }}
+        {{ doc.current_revision.created_on|timesince }} ago.
     </p>
-    {{ doc.render|safe }}
+    {{ doc.rendered|safe }}
+    <p>
+        <strong>Contributors:</strong>
+        {% for author in doc.contributors.all %}
+            {{ author }}
+        {% endfor %}
+    </p>
 {% endblock %}

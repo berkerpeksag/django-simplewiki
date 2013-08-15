@@ -1,6 +1,7 @@
 {% extends "simplewiki/base.html" %}
 
 {% block content %}
+    <h2><a href="{{ doc.get_absolute_url }}">{{ doc.title }}</a></h2>
     <form action="" method="post">
     {% csrf_token %}
     {% for field in form %}
@@ -14,7 +15,7 @@
         </div>
     {% endfor %}
     <footer>
-        <input class="button" type="submit" value="Kaydet">
+        <input class="button" type="submit" value="{{ _('Save') }}">
     </footer>
     </form>
 {% endblock %}

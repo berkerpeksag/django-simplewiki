@@ -1,9 +1,11 @@
 from django.views.generic import DetailView, ListView
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import CreateView, UpdateView
 
-from .forms import DocumentForm
+from extra_views import InlineFormSetView
+
+from .forms import RevisionForm
 from .mixins import LoginRequiredMixin
-from .models import Document
+from .models import Document, Revision
 
 
 class DocumentIndex(ListView):
@@ -20,7 +22,12 @@ class DocumentDetail(DetailView):
     template_name = 'simplewiki/document_detail.html'
 
 
-class DocumentUpdate(LoginRequiredMixin, UpdateView):
+class DocumentRevision(CreateView):
+    model = Revision
+    form_class = RevisionForm
+    #context_object_name = 'doc'
 
-    model = Document
-    form_class = DocumentForm
+    def get_context_data(self, **kwargs):
+        context = super(DocumentRevision, self).get_context_data(**kwargs)
+        context['doc'] = Document.objects.get(slug=self.kwargs['slug'])
+        return context

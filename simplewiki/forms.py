@@ -1,10 +1,10 @@
 from django import forms
 
-from .models import Document
+from .models import Revision
 
 
-class DocumentForm(forms.ModelForm):
+class RevisionForm(forms.ModelForm):
 
     class Meta:
-        model = Document
-        fields = ['title', 'text']
+        model = Revision
+        exclude = ('rendered',)
