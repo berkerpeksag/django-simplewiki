@@ -39,7 +39,7 @@ class Document(models.Model):
     class Meta:
         verbose_name = _('Document')
         verbose_name_plural = _('Documents')
-        ordering = ['-updated_on']
+        ordering = ('-updated_on',)
 
     def save(self, *args, **kwargs):
         slug = slugify(self.title)
@@ -48,13 +48,13 @@ class Document(models.Model):
 
         super(Document, self).save(*args, **kwargs)
 
-    @models.permalink
-    def get_absolute_url(self):
-        return 'document_detail', (), {'slug': self.slug}
-
     @property
     def rendered(self):
         return self.current_revision.rendered
+
+    @models.permalink
+    def get_absolute_url(self):
+        return 'document_detail', (), {'slug': self.slug}
 
     def __unicode__(self):
         return smart_unicode(self.title)
