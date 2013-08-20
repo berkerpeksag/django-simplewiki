@@ -73,6 +73,9 @@ class Revision(models.Model):
 
     creator = models.ForeignKey(USER_MODEL, related_name='created_revisions')
 
+    class Meta:
+        ordering = ('-created_on',)
+
     def save(self, *args, **kwargs):
         if self.document.markup == 'md':
             self.rendered = markdown(self.content)
