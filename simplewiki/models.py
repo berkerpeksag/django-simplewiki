@@ -102,5 +102,5 @@ class Revision(models.Model):
         return 'document_detail', (), {'slug': self.document.slug}
 
     def __unicode__(self):
-        return smart_unicode('%s #%s: %s' % (self.document.title,
-                               self.id, self.content[:50]))
+        args = self.document.title, self.id, self.content[:50]
+        return smart_unicode('%s #%s: %s' % args)
