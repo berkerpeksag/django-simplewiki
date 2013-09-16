@@ -17,6 +17,7 @@ class DocumentDetail(DetailView):
         try:
             return super(DocumentDetail, self).get(request, *args, **kwargs)
         except Http404:
+            # TODO: Use reverse() when I added the create view
             return HttpResponseRedirect('create/%s' % self.kwargs['slug'])
 
 
