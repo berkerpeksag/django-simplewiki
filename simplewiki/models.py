@@ -54,7 +54,7 @@ class Document(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return 'document_detail', (), {'slug': self.slug}
+        return 'simplewiki.detail', (), {'slug': self.slug}
 
     def __unicode__(self):
         return smart_unicode(self.title)
@@ -99,7 +99,7 @@ class Revision(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return 'document_detail', (), {'slug': self.document.slug}
+        return 'simplewiki.detail', (), {'slug': self.document.slug}
 
     def __unicode__(self):
         args = self.document.title, self.id, self.content[:50]

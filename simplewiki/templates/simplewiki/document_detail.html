@@ -3,12 +3,12 @@
 {% block title %}{{ doc.title }}{% endblock %}
 
 {% block content %}
-    <h2>
+    <h1>
         {{ doc.title }}
         {% if user.is_authenticated %}
-        [<a href="{{ doc.get_absolute_url }}/edit/">edit</a>]
+        [<a href="{% url 'simplewiki.update' slug=doc.slug %}">edit</a>]
         {% endif %}
-    </h2>
+    </h1>
     <p id="doc-meta">
         Created {{ doc.created_on|timesince }} ago. Updated by {{ doc.current_revision.creator }}
         {{ doc.current_revision.created_on|timesince }} ago.
