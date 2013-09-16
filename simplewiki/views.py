@@ -1,4 +1,5 @@
-from django.views.generic import DetailView, ListView
+from django.http import HttpResponseRedirect, Http404
+from django.views.generic import DetailView
 from django.views.generic.edit import CreateView
 
 from .forms import RevisionForm
@@ -6,18 +7,17 @@ from .mixins import LoginRequiredMixin
 from .models import Document, Revision
 
 
-class DocumentIndex(ListView):
-
-    queryset = Document.objects.published()
-    context_object_name = 'docs'
-    template_name = 'simplewiki/index.html'
-
-
 class DocumentDetail(DetailView):
 
     model = Document
     context_object_name = 'doc'
     template_name = 'simplewiki/document_detail.html'
+
+    def get(self, request, *args, **kwargs):
+        try:
+            return super(DocumentDetail, self).get(request, *args, **kwargs)
+        except Http404:
+            return HttpResponseRedirect('create/%s' % self.kwargs['slug'])
 
 
 class DocumentRevision(LoginRequiredMixin, CreateView):
