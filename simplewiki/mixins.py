@@ -1,3 +1,5 @@
+from __future__ import print_function, unicode_literals
+
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 

@@ -1,4 +1,6 @@
-from django.http import HttpResponseRedirect, Http404
+from __future__ import print_function, unicode_literals
+
+from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView
 
