@@ -4,7 +4,7 @@ from distutils.core import setup
 setup(
     name='django-simplewiki',
     version='0.1-dev',
-    description='',
+    description='A simple Wiki application for Django.',
     long_description='',
     author='Berker Peksag',
     author_email='berker.peksag@gmail.com',
@@ -19,5 +19,6 @@ setup(
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)',
+        'Private :: Do Not Upload',
     ),
 )
