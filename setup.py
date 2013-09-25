@@ -12,6 +12,7 @@ setup(
     packages=['simplewiki'],
     platforms='any',
     license='Mozilla Public License, v. 2.0',
+    keywords='django wiki',
     classifiers=(
         'Framework :: Django',
         'Programming Language :: Python',
@@ -19,6 +20,5 @@ setup(
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)',
-        'Private :: Do Not Upload',
     ),
 )
