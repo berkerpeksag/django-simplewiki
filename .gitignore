@@ -1,2 +1,5 @@
 *.egg-info
+MANIFEST
+dist/
 dbtest*
+TODO*
