@@ -11,7 +11,7 @@ from .models import Document, Revision
 
 class DocumentDetail(DetailView):
 
-    model = Document
+    queryset = Document.objects.published()
     context_object_name = 'doc'
     template_name = 'simplewiki/document_detail.html'
 
