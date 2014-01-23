@@ -14,8 +14,8 @@ from .managers import DocumentManager
 USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
 MARKUPS = (
-    (u'rst', u'reStructuredText'),
-    (u'md', u'Markdown'),
+    ('rst', 'reStructuredText'),
+    ('md', 'Markdown'),
 )
 
 
