@@ -52,9 +52,8 @@ class Document(models.Model):
     @property
     def get_contributors(self):
         # TODO: Highly inefficient
-        queryset = Revision.objects.filter(document=self)
-        contributors = set([r.creator for r in queryset])
-        return contributors
+        contributors = Revision.objects.filter(document=self).values_list('creator')
+        return set(contributors)
 
     @models.permalink
     def get_absolute_url(self):
