@@ -46,6 +46,7 @@ class Document(models.Model):
 
     @property
     def current_revision(self):
+        # TODO: Probably inefficient
         return Revision.objects.filter(document=self).latest('created_on')
 
     @property
@@ -74,7 +75,7 @@ class Revision(models.Model):
 
     created_on = models.DateTimeField(auto_now_add=True)
 
-    creator = models.ForeignKey(USER_MODEL, blank=True)  # , null=True)
+    creator = models.ForeignKey(USER_MODEL, blank=True)
 
     class Meta:
         ordering = ('-created_on',)
