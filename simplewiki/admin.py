@@ -14,7 +14,7 @@ class RevisionInline(admin.TabularInline):
 class DocumentAdmin(admin.ModelAdmin):
     inlines = [RevisionInline]
     prepopulated_fields = {'slug': ('title',)}
-    readonly_fields = ('created_on', 'updated_on', 'current_revision')
+    readonly_fields = ('created_on', 'updated_on')
 
 admin.site.register(Document, DocumentAdmin)
 admin.site.register(Revision)

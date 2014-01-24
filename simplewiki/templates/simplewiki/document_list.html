@@ -1,0 +1,13 @@
+{% extends "simplewiki/base.html" %}
+
+{% block content %}
+    <h1>
+        Sayfalar
+        [<a href="{% url 'simplewiki.create' %}">create</a>]
+    </h1>
+    <ul>
+    {% for doc in docs %}
+        <li><a href="{% url 'simplewiki.detail' slug=doc.slug %}">{{ doc.title }}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}

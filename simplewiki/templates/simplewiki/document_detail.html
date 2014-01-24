@@ -6,17 +6,18 @@
     <h1>
         {{ doc.title }}
         {% if user.is_authenticated %}
-        [<a href="{% url 'simplewiki.update' slug=doc.slug %}">edit</a>]
+        [<a href="{% url 'simplewiki.update' slug=doc.slug %}">edit</a>
+        <a href="{% url 'simplewiki.create' %}">create</a>]
         {% endif %}
     </h1>
     <p id="doc-meta">
         Created {{ doc.created_on|timesince }} ago. Updated by {{ doc.current_revision.creator }}
         {{ doc.current_revision.created_on|timesince }} ago.
     </p>
-    {{ doc.rendered|safe }}
+    {{ doc.current_revision.rendered|safe }}
     <p>
         <strong>Contributors:</strong>
-        {% for author in doc.contributors.all %}
+        {% for author in doc.get_contributors %}
             {{ author }}
         {% endfor %}
     </p>
