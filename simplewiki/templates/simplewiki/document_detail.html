@@ -16,9 +16,6 @@
     </p>
     {{ doc.current_revision.rendered|safe }}
     <p>
-        <strong>Contributors:</strong>
-        {% for author in doc.get_contributors %}
-            {{ author }}
-        {% endfor %}
+        <strong>Contributors:</strong> {{ doc.get_contributors }}
     </p>
 {% endblock %}
