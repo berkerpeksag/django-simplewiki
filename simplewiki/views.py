@@ -37,7 +37,7 @@ class DocumentCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         context = self.get_context_data()
         doc_rev_form = context['doc_rev_form']
-        if doc_rev_form.is_valid():
+        if form.is_valid() and doc_rev_form.is_valid():
             self.object = form.save()
             doc_rev_form.instance = self.object
             x = doc_rev_form.save(commit=False)
