@@ -28,6 +28,7 @@ class DocumentCreate(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(DocumentCreate, self).get_context_data(**kwargs)
+        # TODO: Consider handling this in DocumentCreate.post()
         if self.request.POST:
             context['doc_rev_form'] = RevisionFormSet(self.request.POST, instance=self.object)
         else:
