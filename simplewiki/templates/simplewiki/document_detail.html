@@ -18,4 +18,9 @@
     <p>
         <strong>Contributors:</strong> {{ doc.get_contributors }}
     </p>
+    {% if doc.current_revision.summary %}
+    <p>
+        <strong>Latest revision summary:</strong> {{ doc.current_revision.summary }}
+    </p>
+    {% endif %}
 {% endblock %}
