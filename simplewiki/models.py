@@ -58,7 +58,7 @@ class Document(models.Model):
 
 class Revision(models.Model):
 
-    document = models.ForeignKey(Document, related_name='revisions')
+    document = models.ForeignKey(Document)
 
     summary = models.CharField(max_length=100, blank=True)
 
