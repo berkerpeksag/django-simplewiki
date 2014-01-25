@@ -11,9 +11,9 @@
     <header>
         <div id="user">
         {% if user.is_authenticated %}
-            <p>Welcome, {{ user.username }}. <a href="{% url 'django.contrib.auth.views.logout' %}">Logout</a></p>
+            <p>Welcome, {{ user.username }}. <a href="{% url 'django.contrib.auth.views.logout' %}">{{ _('Logout') }}</a></p>
         {% else %}
-            <p><a href="{% url 'django.contrib.auth.views.login' %}">Login</a></p>
+            <p><a href="{% url 'django.contrib.auth.views.login' %}">{{ _('Login') }}</a></p>
         {% endif %}
         </div>
         <h1><a href="{% url 'document_index' %}">Django Simple Wiki</a></h1>

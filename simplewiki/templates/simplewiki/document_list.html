@@ -1,9 +1,11 @@
 {% extends "simplewiki/base.html" %}
 
+{% block title %}{{ _('Pages') }}{% endblock %}
+
 {% block content %}
     <h1>
-        Sayfalar
-        [<a href="{% url 'simplewiki.create' %}">create</a>]
+        {{ _('Pages') }}
+        [<a href="{% url 'simplewiki.create' %}">{{ _('Create') }}</a>]
     </h1>
     <ul>
     {% for doc in docs %}
