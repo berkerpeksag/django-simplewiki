@@ -10,13 +10,7 @@ from markdown import markdown
 
 from .managers import DocumentManager
 
-
 USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
-
-MARKUPS = (
-    ('rst', 'reStructuredText'),
-    ('md', 'Markdown'),
-)
 
 
 class Document(models.Model):
@@ -25,7 +19,6 @@ class Document(models.Model):
     slug = models.SlugField(max_length=100, unique=True)
 
     is_published = models.BooleanField(_('Publish?'), default=True)
-    markup = models.CharField(max_length=3, choices=MARKUPS, default='md')
 
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -80,10 +73,7 @@ class Revision(models.Model):
         ordering = ('-created_on',)
 
     def save(self, *args, **kwargs):
-        if self.document.markup == 'md':
-            self.rendered = markdown(self.content)
-        else:
-            self.rendered = self.content
+        self.rendered = markdown(self.content)
 
         super(Revision, self).save(*args, **kwargs)
 

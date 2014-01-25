@@ -10,7 +10,7 @@ class DocumentForm(forms.ModelForm):
 
     class Meta:
         model = Document
-        fields = ('title', 'markup')
+        fields = ('title',)
 
 
 class RevisionForm(forms.ModelForm):
