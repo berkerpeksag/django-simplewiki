@@ -49,7 +49,7 @@ class DocumentCreate(LoginRequiredMixin, CreateView):
             return self.render_to_response(self.get_context_data(form=form))
 
 
-class DocumentRevision(LoginRequiredMixin, CreateView):
+class DocumentAddRevision(LoginRequiredMixin, CreateView):
     model = Revision
     form_class = RevisionForm
 
@@ -58,16 +58,16 @@ class DocumentRevision(LoginRequiredMixin, CreateView):
         return Document.objects.get(slug=self.kwargs['slug'])
 
     def get_initial(self):
-        initial = super(DocumentRevision, self).get_initial()
+        initial = super(DocumentAddRevision, self).get_initial()
         initial['content'] = self.document.current_revision.content
         return initial
 
     def form_valid(self, form):
         form.instance.creator = self.request.user
         form.instance.document = self.document
-        return super(DocumentRevision, self).form_valid(form)
+        return super(DocumentAddRevision, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
-        return super(DocumentRevision,
+        return super(DocumentAddRevision,
                      self).get_context_data(doc=self.document,
                                             **kwargs)
