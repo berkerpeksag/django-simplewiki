@@ -39,6 +39,7 @@ class DocumentCreate(LoginRequiredMixin, CreateView):
         context = self.get_context_data()
         doc_rev_form = context['doc_rev_form']
         if form.is_valid() and doc_rev_form.is_valid():
+            # TODO: Move this to DocumentForm.save()?
             self.object = form.save()
             doc_rev_form.instance = self.object
             x = doc_rev_form.save(commit=False)
@@ -55,6 +56,7 @@ class DocumentAddRevision(LoginRequiredMixin, CreateView):
 
     @property
     def document(self):
+        # TODO: Probably worst practice and inefficient
         return Document.objects.get(slug=self.kwargs['slug'])
 
     def get_initial(self):
