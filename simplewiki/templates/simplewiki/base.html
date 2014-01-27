@@ -1,4 +1,7 @@
 {% load l10n %}
+{% load i18n %}
+{% url 'django.contrib.auth.views.login' as login %}
+{% url 'django.contrib.auth.views.logout' as logout %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +14,11 @@
     <header>
         <div id="user">
         {% if user.is_authenticated %}
-            <p>Welcome, {{ user.username }}. <a href="{% url 'django.contrib.auth.views.logout' %}">{{ _('Logout') }}</a></p>
+            <p>
+                {% blocktrans with name=user.username %}
+                Welcome, {{ name }}. <a href="{{ logout }}">{{ _('Logout') }}</a>
+                {% endblocktrans %}
+            </p>
         {% else %}
             <p><a href="{% url 'django.contrib.auth.views.login' %}">{{ _('Login') }}</a></p>
         {% endif %}
