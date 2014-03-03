@@ -37,6 +37,7 @@ class Document(models.Model):
 
         super(Document, self).save(*args, **kwargs)
 
+    # TODO: Remove this
     @property
     def current_revision(self):
         # TODO: Probably inefficient
@@ -48,6 +49,14 @@ class Document(models.Model):
         contributors = Revision.objects.filter(document=self)
         return ', '.join(set(str(c.creator) for c in contributors))
 
+    @property
+    def current(self):
+        return self.revisions.latest()
+
+    # TODO: Use @property?
+    def rev(self, rev_id):
+        return self.revisions.get(pk=rev_id)
+
     @models.permalink
     def get_absolute_url(self):
         return 'simplewiki.detail', (), {'slug': self.slug}
@@ -58,7 +67,7 @@ class Document(models.Model):
 
 class Revision(models.Model):
 
-    document = models.ForeignKey(Document)
+    document = models.ForeignKey(Document, related_name='revisions')
 
     summary = models.CharField(max_length=100, blank=True)
 
@@ -68,9 +77,13 @@ class Revision(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
 
     creator = models.ForeignKey(USER_MODEL, blank=True)
+    creator_ip = models.IPAddressField(_('Creator IP'))
 
     class Meta:
+        verbose_name = _('Revision')
+        verbose_name_plural = _('Revisions')
         ordering = ('-created_on',)
+        get_latest_by = 'created_on'
 
     def save(self, *args, **kwargs):
         self.rendered = markdown(self.content)
