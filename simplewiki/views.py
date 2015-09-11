@@ -1,5 +1,3 @@
-from __future__ import print_function, unicode_literals
-
 from django.shortcuts import redirect
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView
@@ -27,7 +25,7 @@ class DocumentCreate(LoginRequiredMixin, CreateView):
     form_class = DocumentForm
 
     def get_context_data(self, **kwargs):
-        context = super(DocumentCreate, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         # TODO: Consider handling this in DocumentCreate.post()
         if self.request.POST:
             context['doc_rev_form'] = RevisionFormSet(self.request.POST, instance=self.object)
@@ -60,16 +58,14 @@ class DocumentAddRevision(LoginRequiredMixin, CreateView):
         return Document.objects.get(slug=self.kwargs['slug'])
 
     def get_initial(self):
-        initial = super(DocumentAddRevision, self).get_initial()
+        initial = super().get_initial()
         initial['content'] = self.document.current_revision.content
         return initial
 
     def form_valid(self, form):
         form.instance.creator = self.request.user
         form.instance.document = self.document
-        return super(DocumentAddRevision, self).form_valid(form)
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
-        return super(DocumentAddRevision,
-                     self).get_context_data(doc=self.document,
-                                            **kwargs)
+        return super().get_context_data(doc=self.document, **kwargs)

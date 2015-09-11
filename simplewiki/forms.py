@@ -1,5 +1,3 @@
-from __future__ import print_function, unicode_literals
-
 from django import forms
 from django.forms.models import inlineformset_factory
 

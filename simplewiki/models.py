@@ -1,8 +1,5 @@
-from __future__ import print_function, unicode_literals
-
 from django.conf import settings
 from django.db import models
-from django.utils.encoding import smart_unicode
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
 
@@ -35,7 +32,7 @@ class Document(models.Model):
         if self.slug != slug:
             self.slug = slug
 
-        super(Document, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     # TODO: Remove this
     @property
@@ -61,8 +58,8 @@ class Document(models.Model):
     def get_absolute_url(self):
         return 'simplewiki.detail', (), {'slug': self.slug}
 
-    def __unicode__(self):
-        return smart_unicode(self.title)
+    def __str__(self):
+        return self.title
 
 
 class Revision(models.Model):
@@ -77,7 +74,7 @@ class Revision(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
 
     creator = models.ForeignKey(USER_MODEL, blank=True)
-    creator_ip = models.IPAddressField(_('Creator IP'))
+    creator_ip = models.GenericIPAddressField(_('Creator IP'))
 
     class Meta:
         verbose_name = _('Revision')
@@ -88,12 +85,12 @@ class Revision(models.Model):
     def save(self, *args, **kwargs):
         self.rendered = markdown(self.content)
 
-        super(Revision, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     @models.permalink
     def get_absolute_url(self):
         return 'simplewiki.detail', (), {'slug': self.document.slug}
 
-    def __unicode__(self):
+    def __str__(self):
         args = self.document.title, self.content[:50]
-        return smart_unicode('%s: %s' % args)
+        return '%s: %s' % args
