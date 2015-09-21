@@ -1,10 +1,9 @@
-from django.shortcuts import redirect
 from django.views.generic import DetailView, ListView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 
-from .forms import DocumentForm, RevisionForm, RevisionFormSet
+from .forms import DocumentForm
 from .mixins import LoginRequiredMixin
-from .models import Document, Revision
+from .models import Document
 
 
 class DocumentIndex(ListView):
@@ -14,7 +13,6 @@ class DocumentIndex(ListView):
 
 
 class DocumentDetail(DetailView):
-
     queryset = Document.objects.published()
     context_object_name = 'doc'
     template_name = 'simplewiki/document_detail.html'
@@ -24,48 +22,11 @@ class DocumentCreate(LoginRequiredMixin, CreateView):
     model = Document
     form_class = DocumentForm
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # TODO: Consider handling this in DocumentCreate.post()
-        if self.request.POST:
-            context['doc_rev_form'] = RevisionFormSet(self.request.POST, instance=self.object)
-        else:
-            context['doc_rev_form'] = RevisionFormSet(instance=self.object)
-        return context
-
-    def form_valid(self, form):
-        context = self.get_context_data()
-        doc_rev_form = context['doc_rev_form']
-        if form.is_valid() and doc_rev_form.is_valid():
-            # TODO: Move this to DocumentForm.save()?
-            self.object = form.save()
-            doc_rev_form.instance = self.object
-            x = doc_rev_form.save(commit=False)
-            x[0].creator = self.request.user
-            x[0].save()
-            return redirect(self.object.get_absolute_url())
-        else:
-            return self.render_to_response(self.get_context_data(form=form))
-
-
-class DocumentAddRevision(LoginRequiredMixin, CreateView):
-    model = Revision
-    form_class = RevisionForm
-
-    @property
-    def document(self):
-        # TODO: Probably worst practice and inefficient
-        return Document.objects.get(slug=self.kwargs['slug'])
-
-    def get_initial(self):
-        initial = super().get_initial()
-        initial['content'] = self.document.current_revision.content
-        return initial
-
     def form_valid(self, form):
         form.instance.creator = self.request.user
-        form.instance.document = self.document
         return super().form_valid(form)
 
-    def get_context_data(self, **kwargs):
-        return super().get_context_data(doc=self.document, **kwargs)
+class DocumentUpdate(LoginRequiredMixin, UpdateView):
+    model = Document
+    form_class = DocumentForm
+    template_name = 'simplewiki/document_form.html'

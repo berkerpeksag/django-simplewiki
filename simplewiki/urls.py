@@ -1,7 +1,8 @@
 from django.conf.urls import url
 
-from .views import (DocumentIndex, DocumentCreate, DocumentDetail,
-                    DocumentAddRevision)
+from .views import (
+    DocumentIndex, DocumentCreate, DocumentDetail, DocumentUpdate
+)
 
 urlpatterns = [
     url(r'^$', DocumentIndex.as_view(), name='simplewiki.index'),
@@ -9,5 +10,5 @@ urlpatterns = [
     url(r'^(?P<slug>[a-z0-9-]+)/$',
         DocumentDetail.as_view(), name='simplewiki.detail'),
     url(r'^(?P<slug>[a-z0-9-]+)/edit/$',
-        DocumentAddRevision.as_view(), name='simplewiki.update'),
+        DocumentUpdate.as_view(), name='simplewiki.update'),
 ]

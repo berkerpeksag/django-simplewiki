@@ -5,9 +5,8 @@
 {% block content %}
     <h2>{{ _('Create') }}</h2>
     <form action="" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    {{ doc_rev_form.as_p }}
+        {% csrf_token %}
+        {{ form.as_p }}
         <div class="footer">
             <input class="button" type="submit" value="{{ _('Save') }}">
         </div>

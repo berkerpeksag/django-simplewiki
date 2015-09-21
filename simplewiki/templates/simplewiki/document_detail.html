@@ -11,16 +11,8 @@
         {% endif %}
     </h1>
     <p id="doc-meta">
-        Created {{ doc.created_on|timesince }} ago. Updated by {{ doc.current_revision.creator }}
-        {{ doc.current_revision.created_on|timesince }} ago.
+        Created by {{ doc.creator }} {{ doc.created_on|timesince }} ago.
     </p>
-    {{ doc.current_revision.rendered|safe }}
-    <p>
-        <strong>{{ _('Contributors:') }}</strong> {{ doc.get_contributors }}
-    </p>
-    {% if doc.current_revision.summary %}
-    <p>
-        <strong>{{ _('Latest revision summary:') }}</strong> {{ doc.current_revision.summary }}
-    </p>
-    {% endif %}
+    <hr>
+    {{ doc.rendered|safe }}
 {% endblock %}
