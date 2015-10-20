@@ -7,8 +7,6 @@ from markdown import markdown
 
 from .managers import DocumentManager
 
-USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
-
 
 class Document(models.Model):
 
@@ -16,7 +14,7 @@ class Document(models.Model):
     slug = models.SlugField(max_length=100, unique=True)
 
     is_published = models.BooleanField(_('Publish?'), default=True)
-    creator = models.ForeignKey(USER_MODEL, blank=True)
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True)
 
     content = models.TextField(_('Content'))
     rendered = models.TextField(blank=True, editable=False)  # HTML version of the content

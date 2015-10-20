@@ -26,6 +26,7 @@ class DocumentCreate(LoginRequiredMixin, CreateView):
         form.instance.creator = self.request.user
         return super().form_valid(form)
 
+
 class DocumentUpdate(LoginRequiredMixin, UpdateView):
     model = Document
     form_class = DocumentForm

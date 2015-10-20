@@ -13,7 +13,7 @@ Simple Wiki
 
       url(r'^wiki/', include('simplewiki.urls')),
 
-3. Run ``python manage.py syncdb`` to create the *simplewiki* models.
+3. Run ``python manage.py migrate`` to create the *simplewiki* models.
 
 
 License
