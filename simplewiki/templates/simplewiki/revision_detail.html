@@ -9,5 +9,5 @@
         Made by {{ rev.creator }} {{ rev.created_on|timesince }} ago.
     </p>
     <hr>
-    {{ rev.rendered|safe }}
+    {{ rev.diff|safe }}
 {% endblock %}

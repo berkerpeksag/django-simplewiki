@@ -7,6 +7,7 @@ from django.template.defaultfilters import slugify
 from markdown import markdown
 
 from .managers import DocumentManager
+from .utils import create_diff
 
 
 class Document(models.Model):
@@ -35,12 +36,14 @@ class Document(models.Model):
         if self.slug != slug:
             self.slug = slug
         self.rendered = markdown(self.content)
+        latest_content = self.revisions.latest().content
 
         super().save(*args, **kwargs)
 
         rev = Revision(
             document=self, creator=self.creator, content=self.content,
-            rendered=self.rendered
+            rendered=self.rendered,
+            diff=create_diff(latest_content, self.content),
         )
         rev.save()
 
@@ -57,10 +60,12 @@ class Revision(models.Model):
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True)
     content = models.TextField(_('Content'))
     rendered = models.TextField(blank=True, editable=False)  # HTML version of the content
+    diff = models.TextField(blank=True, editable=False)
     created_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ('-created_on',)
+        get_latest_by = 'created_on'
 
     def __str__(self):
         return '<Revision #{} of "{}" by {}>'.format(self.id, self.document, self.creator)
