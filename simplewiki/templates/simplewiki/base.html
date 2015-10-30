@@ -1,7 +1,5 @@
 {% load l10n %}
 {% load i18n %}
-{% url 'django.contrib.auth.views.login' as login %}
-{% url 'django.contrib.auth.views.logout' as logout %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,9 +14,10 @@
         {% if user.is_authenticated %}
             <p>
                 {% blocktrans with name=user.username %}
-                Welcome, {{ name }}. <a href="{{ logout }}">{{ _('Logout') }}</a>
+                Welcome, {{ name }}.
                 {% endblocktrans %}
                 | <a href="{% url 'simplewiki.create' %}">{{ _('Create') }}</a>
+                | <a href="{% url 'django.contrib.auth.views.logout' %}">{{ _('Logout') }}</a>
             </p>
         {% else %}
             <p><a href="{% url 'django.contrib.auth.views.login' %}">{{ _('Login') }}</a></p>
