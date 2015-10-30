@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
@@ -43,9 +44,8 @@ class Document(models.Model):
         )
         rev.save()
 
-    @models.permalink
     def get_absolute_url(self):
-        return 'simplewiki.detail', (), {'slug': self.slug}
+        return reverse('simplewiki.detail', kwargs=dict(slug=self.slug))
 
     def __str__(self):
         return self.title
