@@ -7,6 +7,8 @@
     <ul>
     {% for doc in docs %}
         <li><a href="{% url 'simplewiki.detail' slug=doc.slug %}">{{ doc.title }}</a></li>
+    {% empty %}
+        <li><p>No documents are available.</p></li>
     {% endfor %}
     </ul>
 {% endblock %}
