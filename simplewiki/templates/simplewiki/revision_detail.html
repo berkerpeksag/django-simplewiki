@@ -1,0 +1,13 @@
+{% extends "simplewiki/base.html" %}
+
+{% block content %}
+    <h1>
+        Revision #{{ rev.id }} of
+        <a href="{% url 'simplewiki.detail' slug=rev.document.slug %}">{{ rev.document.title}}</a>
+    </h1>
+    <p id="doc-meta">
+        Made by {{ rev.creator }} {{ rev.created_on|timesince }} ago.
+    </p>
+    <hr>
+    {{ rev.rendered|safe }}
+{% endblock %}

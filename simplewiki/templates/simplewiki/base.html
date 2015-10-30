@@ -18,6 +18,7 @@
                 {% blocktrans with name=user.username %}
                 Welcome, {{ name }}. <a href="{{ logout }}">{{ _('Logout') }}</a>
                 {% endblocktrans %}
+                | <a href="{% url 'simplewiki.create' %}">{{ _('Create') }}</a>
             </p>
         {% else %}
             <p><a href="{% url 'django.contrib.auth.views.login' %}">{{ _('Login') }}</a></p>

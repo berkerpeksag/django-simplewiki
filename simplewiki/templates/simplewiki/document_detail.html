@@ -6,8 +6,7 @@
     <h1>
         {{ doc.title }}
         {% if user.is_authenticated %}
-        [<a href="{% url 'simplewiki.update' slug=doc.slug %}">{{ _('edit') }}</a>
-        <a href="{% url 'simplewiki.create' %}">{{ _('create') }}</a>]
+        [<a href="{% url 'simplewiki.update' slug=doc.slug %}">{{ _('edit') }}</a>]
         {% endif %}
     </h1>
     <p id="doc-meta">
@@ -15,4 +14,11 @@
     </p>
     <hr>
     {{ doc.rendered|safe }}
+    <hr>
+    <strong>Revisions:</strong>
+    {% for rev in doc.revisions.all %}
+        <a href="{% url 'simplewiki.revision' slug=doc.slug pk=rev.pk %}">
+            {{ rev.creator }}</a>
+        ({{ rev.created_on|timesince }} ago){% if not forloop.last %},{% endif %}
+    {% endfor %}
 {% endblock %}

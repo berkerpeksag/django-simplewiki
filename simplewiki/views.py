@@ -3,7 +3,7 @@ from django.views.generic.edit import CreateView, UpdateView
 
 from .forms import DocumentForm
 from .mixins import LoginRequiredMixin
-from .models import Document
+from .models import Document, Revision
 
 
 class DocumentIndex(ListView):
@@ -16,6 +16,12 @@ class DocumentDetail(DetailView):
     queryset = Document.objects.published()
     context_object_name = 'doc'
     template_name = 'simplewiki/document_detail.html'
+
+
+class RevisionDetail(DetailView):
+    model = Revision
+    context_object_name = 'rev'
+    template_name = 'simplewiki/revision_detail.html'
 
 
 class DocumentCreate(LoginRequiredMixin, CreateView):

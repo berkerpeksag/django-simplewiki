@@ -37,9 +37,30 @@ class Document(models.Model):
 
         super().save(*args, **kwargs)
 
+        rev = Revision(
+            document=self, creator=self.creator, content=self.content,
+            rendered=self.rendered
+        )
+        rev.save()
+
     @models.permalink
     def get_absolute_url(self):
         return 'simplewiki.detail', (), {'slug': self.slug}
 
     def __str__(self):
         return self.title
+
+
+class Revision(models.Model):
+
+    document = models.ForeignKey(Document, related_name='revisions')
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True)
+    content = models.TextField(_('Content'))
+    rendered = models.TextField(blank=True, editable=False)  # HTML version of the content
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ('-created_on',)
+
+    def __str__(self):
+        return '<Revision #{} of "{}" by {}>'.format(self.id, self.document, self.creator)
