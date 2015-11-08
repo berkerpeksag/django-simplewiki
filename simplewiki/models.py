@@ -16,6 +16,7 @@ class Document(models.Model):
     slug = models.SlugField(max_length=100, unique=True)
 
     is_published = models.BooleanField(_('Publish?'), default=True)
+    is_locked = models.BooleanField(_('Locked to edits?'), default=False)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True)
 
     content = models.TextField(_('Content'))
@@ -30,6 +31,9 @@ class Document(models.Model):
         verbose_name = _('Document')
         verbose_name_plural = _('Documents')
         ordering = ('-updated_on',)
+        permissions = [
+            ('can_lock', 'Can lock a document to edits'),
+        ]
 
     def save(self, *args, **kwargs):
         slug = slugify(self.title)

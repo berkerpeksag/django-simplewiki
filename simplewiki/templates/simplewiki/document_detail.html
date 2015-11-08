@@ -4,10 +4,21 @@
 
 {% block content %}
     <h1>
-        {{ doc.title }}
+        <div class="doc-tools">
         {% if user.is_authenticated %}
-        [<a href="{% url 'simplewiki.update' slug=doc.slug %}">{{ _('edit') }}</a>]
+        {% if not doc.is_locked %}
+        <a href="{% url 'simplewiki.update' slug=doc.slug %}">{{ _('edit') }}</a>
         {% endif %}
+        {% if perms.app_label.can_lock %}
+            {% if doc.is_locked %}
+            <a href="">unlock</a>
+            {% else %}
+            <a href="">lock</a>
+            {% endif %}
+        {% endif %}
+        {% endif %}
+        </div>
+        {{ doc.title }}
     </h1>
     <p id="doc-meta">
         Created by {{ doc.creator }} {{ doc.created_on|timesince }} ago.
