@@ -38,6 +38,9 @@ class Document(models.Model):
         self.rendered = markdown(self.content)
         super().save(*args, **kwargs)
 
+    def get_contributors(self):
+        return [r.creator.username
+                for r in self.revisions.order_by('creator').distinct('creator')]
 
     def get_absolute_url(self):
         return reverse('simplewiki.detail', kwargs=dict(slug=self.slug))

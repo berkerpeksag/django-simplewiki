@@ -15,10 +15,8 @@
     <hr>
     {{ doc.rendered|safe }}
     <hr>
-    <strong>Revisions:</strong>
-    {% for rev in doc.revisions.all %}
-        <a href="{% url 'simplewiki.revision' slug=doc.slug pk=rev.pk %}">
-            {{ rev.creator }}</a>
-        ({{ rev.created_on|timesince }} ago){% if not forloop.last %},{% endif %}
+    <strong>Contributors</strong>:
+    {% for user in doc.get_contributors %}
+        {{ user }}
     {% endfor %}
 {% endblock %}
