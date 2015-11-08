@@ -1,9 +1,13 @@
 {% extends "simplewiki/base.html" %}
 
-{% block title %}{{ _('Create') }}{% endblock %}
+{% block title %}Editing {{ object.title }}{% endblock %}
 
 {% block content %}
+    {% if action == 'update' %}
+    <h2>Editing <a href="{% url 'simplewiki.detail' slug=object.slug %}">{{ object.title }}</a></h2>
+    {% else %}
     <h2>{{ _('Create') }}</h2>
+    {% endif %}
     <form action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}
