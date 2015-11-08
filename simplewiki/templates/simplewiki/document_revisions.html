@@ -1,0 +1,18 @@
+{% extends "simplewiki/base.html" %}
+
+{% block title %}{{ doc.title }}{% endblock %}
+
+{% block content %}
+    <h1>
+        Revisions of <a href="{% url 'simplewiki.detail' slug=doc.slug %}">{{ doc.title }}</a>
+    </h1>
+    <hr>
+    <ul>
+    {% for rev in doc.revisions.all %}
+        <li>
+            <a href="{% url 'simplewiki.revision' slug=doc.slug pk=rev.pk %}">Made by {{ rev.creator }}</a>
+            ({{ rev.created_on|timesince }} ago)
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

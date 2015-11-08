@@ -12,6 +12,12 @@ class DocumentIndex(ListView):
     template_name = 'simplewiki/document_list.html'
 
 
+class RevisionList(DetailView):
+    queryset = Document.objects.published()
+    context_object_name = 'doc'
+    template_name = 'simplewiki/document_revisions.html'
+
+
 class DocumentDetail(DetailView):
     queryset = Document.objects.published()
     context_object_name = 'doc'

@@ -17,6 +17,7 @@
             {% endif %}
         {% endif %}
         {% endif %}
+        <a href="{% url 'simplewiki.revisions' slug=doc.slug %}">revisions</a>
         </div>
         {{ doc.title }}
     </h1>
