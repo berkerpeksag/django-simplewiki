@@ -2,7 +2,7 @@ from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView
 
 from .forms import DocumentForm
-from .mixins import LoginRequiredMixin
+from .mixins import AddUserObjectMixin, LoginRequiredMixin
 from .models import Document, Revision
 
 
@@ -24,7 +24,7 @@ class RevisionDetail(DetailView):
     template_name = 'simplewiki/revision_detail.html'
 
 
-class DocumentCreate(LoginRequiredMixin, CreateView):
+class DocumentCreate(LoginRequiredMixin, AddUserObjectMixin, CreateView):
     model = Document
     form_class = DocumentForm
 
@@ -33,7 +33,7 @@ class DocumentCreate(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class DocumentUpdate(LoginRequiredMixin, UpdateView):
+class DocumentUpdate(LoginRequiredMixin, AddUserObjectMixin, UpdateView):
     model = Document
     form_class = DocumentForm
     template_name = 'simplewiki/document_form.html'

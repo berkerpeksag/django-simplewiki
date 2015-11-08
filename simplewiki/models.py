@@ -36,16 +36,8 @@ class Document(models.Model):
         if self.slug != slug:
             self.slug = slug
         self.rendered = markdown(self.content)
-        latest_content = self.revisions.latest().content
-
         super().save(*args, **kwargs)
 
-        rev = Revision(
-            document=self, creator=self.creator, content=self.content,
-            rendered=self.rendered,
-            diff=create_diff(latest_content, self.content),
-        )
-        rev.save()
 
     def get_absolute_url(self):
         return reverse('simplewiki.detail', kwargs=dict(slug=self.slug))
