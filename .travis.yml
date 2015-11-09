@@ -1,0 +1,15 @@
+sudo: false
+language: python
+env:
+  - TOXENV=py34
+  - TOXENV=py35
+addons:
+  postgresql: "9.3"
+services:
+  - postgresql
+before_install: psql -c 'CREATE DATABASE simplewiki' -U postgres
+install: pip install tox
+script: tox
+cache:
+  directories:
+    - .tox

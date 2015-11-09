@@ -1,8 +1,5 @@
 from setuptools import find_packages, setup
 
-with open('requirements.txt') as fobj:
-    install_requires = fobj.read().splitlines()
-
 setup(
     name='django-simplewiki',
     version='0.1',
@@ -11,7 +8,6 @@ setup(
     author_email='berker.peksag@gmail.com',
     url='https://github.com/berkerpeksag/django-simplewiki',
     packages=find_packages(),
-    install_requires=install_requires,
     zip_safe=False,
     license='Mozilla Public License, v. 2.0',
     keywords='django, wiki',

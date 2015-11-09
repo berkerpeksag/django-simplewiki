@@ -4,7 +4,12 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
 
-from markdown import markdown
+try:
+    from markdown import markdown
+except ImportError as exc:
+    raise RuntimeError(
+        "You need to install 'markdown' to use simplewiki"
+    ) from exc
 
 from .managers import DocumentManager
 from .utils import create_diff
