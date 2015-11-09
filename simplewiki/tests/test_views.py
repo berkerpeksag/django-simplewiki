@@ -1,6 +1,8 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
+from . import factories
+
 
 class ViewTests(TestCase):
 
@@ -23,3 +25,9 @@ class ViewTests(TestCase):
         response = self.client.get(reverse('simplewiki.detail',
                                    kwargs=dict(slug='foo')))
         self.assertEqual(response.status_code, 404)
+
+    def test_update_redirect_to_login(self):
+        d = factories.DocumentFactory(title='title', slug='title')
+        response = self.client.get(reverse('simplewiki.update',
+                                   kwargs=dict(slug='title')))
+        self.assertEqual(response.status_code, 302)
