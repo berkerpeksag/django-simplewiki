@@ -2,6 +2,9 @@
 Simple Wiki
 ===========
 
+.. image:: https://travis-ci.org/berkerpeksag/django-simplewiki.svg?branch=master
+    :target: https://travis-ci.org/berkerpeksag/django-simplewiki
+
 1. Add *simplewiki* to your ``INSTALLED_APPS`` setting like this::
 
       INSTALLED_APPS = (
