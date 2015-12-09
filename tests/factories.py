@@ -2,7 +2,7 @@ import factory
 
 from django.conf import settings
 
-from ..models import Document
+from simplewiki.models import Document
 
 
 class UserFactory(factory.DjangoModelFactory):
